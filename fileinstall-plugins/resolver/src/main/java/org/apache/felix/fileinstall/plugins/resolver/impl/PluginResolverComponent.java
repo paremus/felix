@@ -37,13 +37,14 @@ import org.osgi.service.resolver.Resolver;
 
 @Component(name = "org.apache.felix.fileinstall.plugins.resolver")
 public class PluginResolverComponent implements PluginResolver {
-	
+
 	private BundleContext bundleContext;
-	
+
 	@Reference(cardinality = ReferenceCardinality.OPTIONAL, policyOption = ReferencePolicyOption.GREEDY)
 	LogService log;
-	
-	@Reference(target = "(!(" + Constants.SERVICE_BUNDLEID + "=0))")
+
+	//FIXME doesn't resolve against  org.apache.felix.resolver
+	@Reference // (target = "(!(" + Constants.SERVICE_BUNDLEID + "=0))")
 	Resolver frameworkResolver;
 
 	@Activate
@@ -55,7 +56,7 @@ public class PluginResolverComponent implements PluginResolver {
 	public ResolveResult resolve(ResolveRequest request) throws Exception {
 		PluginResolveContext context = new PluginResolveContext(bundleContext, request, log);
 		Map<Resource, List<Wire>> resolved = frameworkResolver.resolve(context);
-		
+
 		ResolveResultImpl result = new ResolveResultImpl(request);
 		for (Entry<Resource, List<Wire>> entry : resolved.entrySet()) {
 			Resource resource = entry.getKey();
@@ -64,7 +65,7 @@ public class PluginResolverComponent implements PluginResolver {
 				result.addResource(resource, context.getLocation(resource));
 			}
 		}
-		
+
 		return result;
 	}
 }

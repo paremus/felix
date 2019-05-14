@@ -22,7 +22,8 @@
 	</scm>
 
 	<properties>
-		<felix.java.version>7</felix.java.version>
+		<felix.java.version>8</felix.java.version>
+                <bnd.version>4.2.0</bnd.version>
 	</properties>
 
 	<dependencies>
@@ -46,7 +47,7 @@
 		<dependency>
 			<groupId>biz.aQute.bnd</groupId>
 			<artifactId>biz.aQute.bndlib</artifactId>
-			<version>3.3.0</version>
+			<version>${bnd.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.jcip</groupId>
@@ -56,7 +57,7 @@
 		<dependency>
 			<groupId>biz.aQute.bnd</groupId>
 			<artifactId>biz.aQute.repository</artifactId>
-			<version>3.4.0</version>
+			<version>${bnd.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -69,7 +70,7 @@
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-maven-plugin</artifactId>
-				<version>3.4.0</version>
+				<version>${bnd.version}</version>
 				<executions>
 					<execution>
 						<id>default-bnd-process</id>

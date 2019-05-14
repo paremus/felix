@@ -32,6 +32,7 @@
 	<properties>
 		<felix.java.version>8</felix.java.version>
 		<felix.java.signature.artifactId>java18</felix.java.signature.artifactId>
+                <bnd.version>4.2.0</bnd.version>
 	</properties>
 
 	<dependencies>
@@ -118,13 +119,13 @@
 		<dependency>
 			<groupId>biz.aQute.bnd</groupId>
 			<artifactId>biz.aQute.bndlib</artifactId>
-			<version>3.4.0</version>
+			<version>${bnd.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>biz.aQute.bnd</groupId>
 			<artifactId>biz.aQute.repository</artifactId>
-			<version>3.4.0</version>
+			<version>${bnd.version}</version>
 			<scope>test</scope>
 		</dependency>
 		

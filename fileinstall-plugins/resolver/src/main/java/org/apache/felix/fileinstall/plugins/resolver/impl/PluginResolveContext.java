@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import aQute.bnd.http.HttpClient;
+import aQute.bnd.repository.osgi.OSGiRepository;
 import org.apache.felix.fileinstall.plugins.resolver.ResolveRequest;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -69,7 +71,7 @@ class PluginResolveContext extends ResolveContext {
     private final ResourceImpl initialResource;
     private final LogService log;
 
-    PluginResolveContext(BundleContext bundleContext, ResolveRequest request, LogService log) throws IOException {
+    PluginResolveContext(BundleContext bundleContext, ResolveRequest request, LogService log) throws Exception {
         this.bundleContext = bundleContext;
         this.log = log;
 
@@ -80,13 +82,15 @@ class PluginResolveContext extends ResolveContext {
         this.initialResource.addCapability(createIdentityCap(this.initialResource, request.getName()));
         this.initialResource.addCapability(createInitialMarkerCapability(this.initialResource));
 
-        BasicRegistry registry = new BasicRegistry().put(URLConnector.class, new JarURLConnector());
+        BasicRegistry registry = new BasicRegistry();
+        registry.put(URLConnector.class, new JarURLConnector());
+        registry.put(HttpClient.class, new HttpClient());
 
         for (URI indexUri : request.getIndexes()) {
             // URI cachedIndexUri = getCacheIndexURI(indexUri);
             Map<String, String> repoProps = new HashMap<>();
             repoProps.put("locations", indexUri.toString());
-            FixedIndexedRepo repo = new FixedIndexedRepo();
+            OSGiRepository repo = new OSGiRepository();
             repo.setRegistry(registry);
             repo.setProperties(repoProps);
 
